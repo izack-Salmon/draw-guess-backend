@@ -1,4 +1,4 @@
-const OrderService = require('./Order.service.js');
+const orderService = require('./order.service');
 const logger = require('../../services/logger.service')
 
 // GET LIST
@@ -6,9 +6,9 @@ async function getOrders(req, res) {
     try {
         var queryParams = req.query;
         // console.log('queryParams:', queryParams);    
-        const Orders = await OrderService.query(queryParams)
+        const orders = await orderService.query(queryParams)
         // console.log('Orders23456', Orders);
-        res.json(Orders);
+        res.json(orders);
     } catch (err) {
         logger.error('Failed to get Orders', err)
         res.status(500).send({ err: 'Failed to get Orders' })
@@ -18,9 +18,9 @@ async function getOrders(req, res) {
 // GET BY ID 
 async function getOrderById(req, res) {
     try {
-        const OrderId = req.params.id;
-        const Order = await OrderService.getById(OrderId)
-        res.json(Order)
+        const orderId = req.params.id;
+        const order = await orderService.getById(orderId)
+        res.json(order)
     } catch (err) {
         logger.error('Failed to get Order', err)
         res.status(500).send({ err: 'Failed to get Order' })
@@ -39,7 +39,7 @@ async function addOrder(req, res) {
                 imgUrl: user.imgUrl,
             }
             // console.log('order', order);
-            const addedOrder = await OrderService.add(order)
+            const addedOrder = await orderService.add(order)
             // console.log(addedOrder);
 
             res.json(addedOrder)
@@ -53,8 +53,8 @@ async function addOrder(req, res) {
 // PUT (Update Order)
 async function updateOrder(req, res) {
     try {
-        const Order = req.body;
-        const updatedOrder = await OrderService.update(Order)
+        const order = req.body;
+        const updatedOrder = await orderService.update(order)
         res.json(updatedOrder)
     } catch (err) {
         logger.error('Failed to update Order', err)
@@ -66,8 +66,8 @@ async function updateOrder(req, res) {
 // DELETE (Remove Order)
 async function removeOrder(req, res) {
     try {
-        const OrderId = req.params.id;
-        const removedId = await OrderService.remove(OrderId)
+        const orderId = req.params.id;
+        const removedId = await orderService.remove(orderId)
         res.send(removedId)
     } catch (err) {
         logger.error('Failed to remove Order', err)

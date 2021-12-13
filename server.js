@@ -13,6 +13,7 @@ const session = expressSession({
     saveUninitialized: true,
     cookie: { secure: false }
 })
+
 app.use(express.json())
 app.use(session)
 
