@@ -29,6 +29,10 @@ function connectSockets(http, session) {
             // emits only to sockets in the same room
             gIo.to(socket.myTopic).emit('chat addMsg', msg)
         })
+        socket.on('purchase', order => {
+        })
+        socket.on('orderAccepted', order => {
+        })
         socket.on('user-watch', userId => {
             socket.join('watching:' + userId)
         })
