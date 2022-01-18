@@ -39,7 +39,7 @@ async function addOrder(req, res) {
                 fullname: user.fullname,
                 imgUrl: user.imgUrl,
             }
-            console.log('order', order);
+            // console.log('order', order);
             // console.log('order in backkkkkkkkkk', order);
             const addedOrder = await orderService.add(order)
             socketService.emitToUser({ type: 'purchase', data: order, userId: order.seller._id })

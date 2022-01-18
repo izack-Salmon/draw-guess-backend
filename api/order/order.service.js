@@ -3,14 +3,15 @@ const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 
 async function query(filterBy) {
-    console.log('filterBy-serviceback', filterBy);
+    // console.log('filterBy-serviceback', filterBy);
     try {
-        // const criteria = _buildCriteria(filterBy)
-        const criteria = {};
+        const criteria = _buildCriteria(filterBy)
+        // const criteria = {};
         // console.log('filter', filterBy);
         // console.log('criteria', criteria);
         const collection = await dbService.getCollection('order')
         // console.log('collection:', collection);
+        // var orders = await collection.find({ "seller._id": filterBy.id }).toArray()
         var orders = await collection.find(criteria).toArray()
         // console.log('orders:', orders);
         return orders
@@ -46,7 +47,7 @@ async function add(order) {
     try {
         const collection = await dbService.getCollection('order')
         const addedOrder = await collection.insertOne(order)
-        console.log('addedOrder.ops', addedOrder.ops);
+        // console.log('addedOrder.ops', addedOrder.ops);
         return addedOrder
     } catch (err) {
         logger.error('cannot insert order', err)
@@ -66,28 +67,11 @@ async function update(order) {
     }
 }
 function _buildCriteria(filterBy) {
-    const criteria = {}
-    if (filterBy.name) {
-        const nameCriteria = { $regex: filterBy.name, $options: 'i' }
-        criteria.name = nameCriteria
+    // console.log('filterid', filterBy.id);
+    var criteria = {}
+    if (filterBy.id) {
+        criteria = { "seller._id": filterBy.id }
     }
-    if (filterBy.inStock !== '' && filterBy.inStock !== 'all') {
-        if (filterBy.inStock === 'inStock') criteria.inStock = { $eq: true }
-        else if (filterBy.inStock === 'missing') criteria.inStock = { $eq: false }
-
-        // criteria.inStock = { $eq: JSON.parse(filterBy.inStock) }
-    }
-    if (filterBy.labels && filterBy.labels.length) {
-        criteria.labels = { $in: filterBy.labels }
-    }
-    // criteria.$or = [
-    //     {
-    //         name: nameCriteria
-    //     },
-    //     {
-    //         inStock: txtCriteria
-    //     }
-    // ]
     return criteria
 }
 

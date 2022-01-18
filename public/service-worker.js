@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.f60dc35670ac7438b0807e7f673d376a.js"
+  "/precache-manifest.974ab1eafacf7c4d12347a48dae54a59.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "piverr"});
