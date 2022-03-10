@@ -7,7 +7,7 @@ module.exports = {
 }
 
 // Database Name
-const dbName = 'PIVERR_DB'
+const dbName = 'DRAW&GUESS_DB'
 
 var dbConn = null
 
